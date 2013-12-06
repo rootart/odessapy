@@ -423,7 +423,6 @@ Rejected Keys:
 			<h2>chat.sls virtualenvironment block<h2>
 		</header>
 			<p>
-				We could define specific states for matching minions inside <mark>/srv/salt/top.sls</mark>
 				<pre style="font-size: 0.8em; margin-top: -40px;">
 					<code>/home/dev/venv: #ID declaration
   <mark>virtualenv.managed</mark>: 
@@ -442,6 +441,27 @@ Rejected Keys:
 	<div id="StateHighState" class="slide"><div>
 		<section>
 		<h2 style="font-size: 3em; padding-top: 20%">salt '*' <mark>state.highstate</mark></h2>
+		</section>
+	</div></div>
+
+<div class="slide" id="Scheduling"><div>
+		<section>
+		<header>
+			<h2>Scheduling periodic tasks<h2>
+		</header>
+			<p>
+				<pre style="font-size: 0.8em; margin-top: -40px;">
+					<code>/home/dev/venv: #ID declaration
+  <mark>schedule</mark>:
+  highstate:
+    <mark>function</mark>: state.highstate
+    minutes: 15
+    returner: postgresql
+  monitoring:
+    function: monitoring.collect
+    minutes: 1</code>
+				</pre>
+			</p>
 		</section>
 	</div></div>
 
