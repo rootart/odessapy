@@ -77,8 +77,7 @@
 					It provides fantastic and flexiable way for both <mark>remote execution</mark> (psh, ansiable) and <mark>configuration management</mark> (chef, puppet)
 				</backquote>
 				<pre>
-					<code>
-salt  <mark>'*'</mark> <mark>cmd.run</mark> '/etc/init.d/redis-server restart'
+					<code>salt  <mark>'*'</mark> <mark>cmd.run</mark> '/etc/init.d/redis-server restart'
 					</code>
 				</pre>
 			</p>
@@ -265,11 +264,62 @@ Rejected Keys:
        	<code>salt -G <mark>'roles:mongodb'</mark> test.ping</code>
        	<code>salt -C <mark>'G@roles:redis-cluster or s3'</mark> test.ping</code>
    		<code>salt -C <mark>'G@roles:redis-cluster</mark> or <mark>s3</mark>' test.ping</code>
-       	<code>salt -C '<mark>G@roles:redis-cluster</mark> and <mark>G@os:Ubuntu</mark>' test.ping</code>
+       	<code>salt -C '<mark>G@roles:redis-cluster</mark> and <mark>G@os:Ubuntu</mark>' command</code>
        </pre>
 			</p>
 		</section>
 	</div></div>
+
+    <div class="slide cover" id="TargetingExamplesScreenshot"><div>
+		<section>
+			<header>
+			</header>
+			<img src="i/2._root_salt-stack-master_____ssh_ 6.png" alt="">
+		</section>
+	</div></div>
+
+	<div id="Modules" class="slide shout"><div>
+		<section>
+			<header>
+				<h2>Modules</h2>
+			</header>
+		</section>
+	</div></div>
+
+<div class="slide" id="ModulesDescription"><div>
+		<section>
+		<header>
+			<h2>Python functions that could be executed on minions</h2>
+		</header>
+			<p>
+      		<a href="http://docs.saltstack.com/py-modindex.html">http://docs.saltstack.com/py-modindex.html</a>
+      		<pre>
+      			<code>salt 's1' <mark>pkg.refresh_db</mark></code>
+      			<code>salt '*' <mark>service.restart</mark> chat</code>
+      			<code>salt '*' <mark>grains.ls</mark></code>
+      			<code>salt '*' <mark>rabbitmq.add_user</mark> user password</code>
+      			<code>salt '*' <mark>cmd.run</mark>'/etc/init.d/celeryd restart' <mark>-b</mark> 1</code>
+      		</pre>
+			</p>
+		</section>
+	</div></div>
+
+	<div id="Pillars" class="slide shout"><div>
+		<section>
+			<header>
+				<h2>Pillars</h2>
+			</header>
+		</section>
+	</div></div>
+
+	<div id="States" class="slide shout"><div>
+		<section>
+			<header>
+				<h2>States</h2>
+			</header>
+		</section>
+	</div></div>
+
 
 	<div class="slide" id="ThankYou"><div>
 		<section>
