@@ -333,6 +333,65 @@ Rejected Keys:
 		</section>
 	</div></div>
 
+
+<div class="slide" id="PillarsIntro"><div>
+		<section>
+		<header>
+			<h2>Distribute global values to the minions building pillar tree</h2>
+		</header>
+			<p>
+      		<h1 style="font-size: 1.2em;"><mark>/srv/pillar/*</mark> and <mark>/srv/pillar/top.sls</mark></h1>
+      		<pre>
+      			<code>base:
+   'role:redis'
+      - metch: grain
+      - <mark>packages</mark> # pillar file
+
+  </code>
+
+      		</pre>
+			</p>
+		</section>
+	</div></div>
+
+
+<div class="slide" id="PackagesPillar"><div>
+		<section>
+		<header>
+			<h2>/srv/pillar/packages.sls<h2>
+		</header>
+			<p>
+      		<pre>
+      			<code>packages: redis-server, git, htop</code>
+      			<code>{% if <mark>grains['os']</mark> == 'Ubuntu' %}</code>
+      			<code>extra_packages: screen</code>
+      			<code>{% endif %}</code>
+        		</pre>
+			</p>
+		</section>
+	</div></div>
+
+<div class="slide" id="RefreshPillar"><div>
+		<section>
+		<header>
+			<h2>Refreshing and using pillars data<h2>
+		</header>
+			<p>
+      		<pre>
+      			<code>salt '*' <mark>saltutil.refresh_pillar</mark></code>
+      			<code>salt 's1' <mark>pillar.items</mark></code>
+      			inside state
+      			<code>{% for pkg in <mark>pillar.get('packages', [])</mark> %}
+  <mark>{{ pkg }}</mark>:
+      pkg:
+  	    - installed
+{% endfor %}</code>
+        		</pre>
+			</p>
+		</section>
+	</div></div>
+
+
 	<div id="States" class="slide shout"><div>
 		<section>
 			<header>
@@ -341,15 +400,91 @@ Rejected Keys:
 		</section>
 	</div></div>
 
+<div class="slide" id="StatesTree"><div>
+		<section>
+		<header>
+			<h2>State tree declares configuration for particular minion<h2>
+		</header>
+			<p>
+				We could define specific states for matching minions inside <mark>/srv/salt/top.sls</mark>
+				<pre>
+					<code>base:
+  <mark>'*'</mark>: #could use any targeting types, e.g. <mark>'roles:x'</mark>
+    - redis-server
+    - chat</code>
+				</pre>
+			</p>
+		</section>
+	</div></div>
 
-	<div class="slide" id="ThankYou"><div>
+<div class="slide" id="StateChatVirtualEnv"><div>
+		<section>
+		<header>
+			<h2>chat.sls virtualenvironment block<h2>
+		</header>
+			<p>
+				We could define specific states for matching minions inside <mark>/srv/salt/top.sls</mark>
+				<pre style="font-size: 0.8em; margin-top: -40px;">
+					<code>/home/dev/venv: #ID declaration
+  <mark>virtualenv.managed</mark>: 
+    - system_site_packages: False
+    - user: dev
+    - runas: dev
+    - requirements: <mark>salt://requirements.txt</mark>
+  <mark>require</mark>:
+    - pkg: python-virtualenv
+    - user: dev</code>
+				</pre>
+			</p>
+		</section>
+	</div></div>
+
+	<div id="StateHighState" class="slide"><div>
+		<section>
+		<h2 style="font-size: 3em; padding-top: 20%">salt '*' <mark>state.highstate</mark></h2>
+		</section>
+	</div></div>
+
+<div class="slide" id="WorthToBeMentioned"><div>
+		<section>
+		<header>
+			<h2>Worth to be mentioned<h2>
+		</header>
+			<p>
+			<ul>
+				<li>More advanced usage of jinja templates</li>
+				<li>Write custom renderers (aside from YAML+Jinja)</li>
+				<li>Returners</li>
+				<li>ACL</li>
+				<li>SSH roster</li>
+			</ul>
+			</p>
+		</section>
+	</div></div>
+
+	<div id="TooLong" class="slide shout"><div>
+		<section>
+			<header>
+				<h2>tl;dr</h2>
+			</header>
+		</section>
+	</div></div>
+
+	<div id="ThankYou" class="slide shout"><div>
 		<section>
 			<header>
 				<h2>Thank you</h2>
 			</header>
+		</section>
+	</div></div>
+
+	<div class="slide" id="Question"><div>
+		<section>
+			<header>
+				<h2 style="font-size: 2em;">Questions?</h2>
+			</header>
 			Vasyl Dizhak <a href="http://twitter.com/rootart">@rootart</a>, <a href="http://dizhak.com">dizhak.com</a><br>
 			<a href="mailto:vasyl.dizhak@djangostars.com">vasyl.dizhak@djangostars.com</a><br>
-			<em style="font-size: 40px;">Questions?</em>
 		</section>
 	</div></div>
 

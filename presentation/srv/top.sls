@@ -1,0 +1,4 @@
+base:
+  '*':
+    - redis-server
+    - chat
